@@ -1,0 +1,122 @@
+{
+	"name": "vs-ttools",
+	"displayName": "vs-ttools",
+	"description": "Tools for VS Code",
+	"repository": "https://github.com/trevorlolsen/vs-ttools",
+	"version": "1.0.0",
+	"publisher": "dsw",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "vs-help",
+			"properties": {
+				"help.directory": {
+					"type": "string",
+					"default": "",
+					"markdownDescription": "Directory for help json files."
+				},
+				"help.titleMenu": {
+					"type": "boolean",
+					"scope": "resource",
+					"default": true,
+					"description": "Show search command on title menu."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "vs.help.collapse",
+				"title": "Collapse",
+				"category": "vs-help",
+				"icon": "./images/collapse.png"
+			},
+			{
+				"command": "vs.help.reformat",
+				"title": "Reformat",
+				"category": "vs-help",
+				"icon": "./images/reformat.png"
+			},
+			{
+				"command": "vs.help.search",
+				"title": "Search help",
+				"category": "vs-help",
+				"icon": "./images/help.png"
+			},
+			{
+				"command": "vs.help.pull",
+				"title": "Pull help",
+				"category": "vs-help",
+				"icon": "./images/help.png"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"when": "config.help.titleMenu",
+					"command": "vs.help.search",
+					"group": "navigation"
+				},
+				{
+					"when": "config.help.titleMenu",
+					"command": "vs.help.reformat",
+					"group": "navigation"
+				},
+				{
+					"when": "config.help.titleMenu",
+					"command": "vs.help.collapse",
+					"group": "navigation"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "vs.help.pull",
+					"group": "navigation"
+				},
+				{
+					"command": "vs.help.search",
+					"group": "navigation"
+				},
+				{
+					"command": "vs.help.reformat",
+					"group": "navigation"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "vs.help.pull",
+				"key": "ctrl+numpad1"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.49.0",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0",
+		"webpack": "^4.46.0",
+		"webpack-cli": "^3.3.12"
+	}
+}
