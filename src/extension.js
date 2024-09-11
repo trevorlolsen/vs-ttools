@@ -13,7 +13,7 @@ function activate(context) {
 
 
 
-	
+
 
 
 	// vscode.window.registerTreeDataProvider('nodeDependencies', new tree.TreeDataProvider());
@@ -67,11 +67,11 @@ function activate(context) {
 				vscode.window.showInformationMessage('Run: ' + editor.document.uri);
 				const cmd = "Rscript -e \"styler::style_file('" + editor.document.uri.fsPath.split("\\").join("\\\\") + "')\"";
 				const msg = "Run Finished";
-				
-			    helpers.run_shell_cmd(vscode, cmd, msg);
-			
+
+				helpers.run_shell_cmd(vscode, cmd, msg);
+
 			});
-			
+
 		})
 	);
 
@@ -81,15 +81,26 @@ function activate(context) {
 			let settings = helpers.workshop_all_project_settings();
 			console.log(settings);
 			vscode.window.showQuickPick(settings).then(function (my_pick) {
-				
-				helpers.saver_collapse(my_pick);
-				vscode.window.showInformationMessage("Collapse to: " + my_pick.out_path);
+
+				if ("all" in my_pick && my_pick["all"] === true) {
+					for (var i = 0; i < settings.length; i++) {
+						if(("all" in settings[i] && settings[i]["all"] === true)===false){
+						helpers.saver_collapse(settings[i]);
+						vscode.window.showInformationMessage("Collapse to: " + settings[i].out_path);
+						}
+					}
+				} else {
+					helpers.saver_collapse(my_pick);
+					vscode.window.showInformationMessage("Collapse to: " + my_pick.out_path);
+				}
+
+
 
 			});
-			    
-			
-		
-			
+
+
+
+
 		})
 	);
 
