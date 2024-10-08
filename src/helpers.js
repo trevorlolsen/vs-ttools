@@ -230,7 +230,11 @@ const saver_walk = function (dir, ends_with) {
           results = results.concat(saver_walk(file, ends_with));
       } else {
           /* Is a file */
-          if (file.toLowerCase().endsWith(ends_with.toLowerCase())) { results.push(file); }
+          if(ends_with.toLowerCase()=="any"){
+            results.push(file); 
+          }else if (file.toLowerCase().endsWith(ends_with.toLowerCase())) { 
+            results.push(file); 
+          }
       }
   });
   return results;
